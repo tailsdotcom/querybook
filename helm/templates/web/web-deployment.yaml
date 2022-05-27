@@ -56,6 +56,10 @@ spec:
                 secretKeyRef:
                   name: {{ include "querybook.fullname" . }}-secret
                   key: ELASTICSEARCH_HOST
+            {{- range $key, $value := .Values.web.extraEnv }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
           ports:
             - containerPort: 10001
           resources:
